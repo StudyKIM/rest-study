@@ -1,35 +1,35 @@
-var app = app || {};
-
 //Todo一覧の1件表示用ビュー
-(function (app) {
-    app.TodoItemView = Backbone.Marionette.ItemView.extend({
+define(function(){
+    var TodoItemView = Marionette.ItemView.extend({
         //DOMに要素追加のタグ名
-        tagName: 'tr',
+        tagName : 'tr',
 
         //テンプレート
-        template: '#todo-item-template',
+        template : '#todo-item-template',
 
-        ui: {
-            checkBox: '.toggle',
-            removeLink: '.remove-link'
+        ui : {
+            checkBox : '.toggle',
+            removeLink : '.remove-link'
         },
 
         //DOMイベントハンドラ設定
-        events: {
+        events : {
             //チェックボックスクリック時
-            'click @ui.checkBox': 'onStatusToggleClick',
+            'click @ui.checkBox' : 'onStatusToggleClick',
             //削除ボタンクリック時
-            'click @ui.removeLink': 'onRemoveClick',
+            'click @ui.removeLink' : 'onRemoveClick',
         },
 
-
-        onStatusToggleClick: function (e) {
+        onStatusToggleClick : function() {
             this.model.toggle();
         },
-        onRemoveClick: function (e) {
+
+        onRemoveClick : function() {
             this.model.destroy({
-                wait: true
+                wait : true
             });
         },
+
     });
-})(app);
+    return TodoItemView;
+});

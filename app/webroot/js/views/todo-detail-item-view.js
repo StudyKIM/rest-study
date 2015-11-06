@@ -1,60 +1,60 @@
 /**
  * Created by admin on 15/10/30.
  */
-var app = app || {};
-
 //詳細ビュー
-(function(app) {
-    app.TodoDetailItemView = Backbone.Marionette.ItemView.extend({
+define(function () {
+    var TodoDetailItemView = Backbone.Marionette.ItemView.extend({
 
         //テンプレート
         template: "#todo-detail-item-template",
 
-        ui : {
-            todoStatus   : '#edit-todo',
-            updateButton : '#updateTodo',
-            cancelButton : '#updateCancel'
+        ui: {
+            todoStatus: '#edit-todo',
+            updateButton: '#updateTodo',
+            cancelButton: '#updateCancel'
         },
 
         //DOMイベントハンドラ設定
-        events : {
+        events: {
             //更新ボタンクリック時
-            'click @ui.updateButton' : 'onUpdateClick',
+            'click @ui.updateButton': 'onUpdateClick',
             //キャンセルボタンクリック時
-            'click @ui.cancelButton' : 'onCancelClick',
+            'click @ui.cancelButton': 'onCancelClick',
         },
 
         //初期化
-        initialize: function(){
-            _.bindAll( this, 'onSaveSuccess' );
+        initialize: function () {
+            _.bindAll(this, 'onSaveSuccess');
         },
 
         //更新ボタンクリックのイベントハンドラ
-        onUpdateClick : function() {
+        onUpdateClick: function () {
             //テキストボックスから文字を取得
             var todoString = this.ui.todoStatus.val();
             this.model.save({
-                todo : todoString
+                todo: todoString
             }, {
-                silent : true,
-                success : this.onSaveSuccess,
+                silent: true,
+                success: this.onSaveSuccess,
             });
         },
 
         //キャンセルボタンクリックのイベントハンドラ
-        onCancelClick : function() {
+        onCancelClick: function () {
             this.backTodoLists();
         },
 
         //更新成功
-        onSaveSuccess : function() {
+        onSaveSuccess: function () {
             this.backTodoLists();
         },
 
         //TODOリスト画面に戻る
-        backTodoLists : function() {
+        backTodoLists: function () {
             Backbone.history.navigate('#todo-lists', true);
         }
 
     });
-})(app);
+    return TodoDetailItemView;
+
+});

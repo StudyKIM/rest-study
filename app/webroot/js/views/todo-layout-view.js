@@ -1,11 +1,12 @@
 /**
  * Created by admin on 15/10/30.
  */
-var app = app || {};
-
 //Todo一覧表示用レイアウトビュー
-(function(app) {
-    app.TodoLayoutView = Backbone.Marionette.LayoutView.extend({
+define(function(require){
+    var TodoCompositeView = require('views/todo-composite-view');
+    var TodoCollection = require('collections/todo-collection');
+
+    var TodoLayoutView = Marionette.LayoutView.extend({
         //テンプレート
         template: '#todo-layout-template',
 
@@ -14,16 +15,17 @@ var app = app || {};
         },
 
         onRender : function(){
-            var todoCollection = new app.TodoCollection();
+            var todoCollection = new TodoCollection();
             this.listenTo(todoCollection , 'reset', this.showTodoList, this);
             todoCollection.fetch({reset : true});
         },
 
         showTodoList : function(todoCollection){
-            this.listRegion.show( new app.TodoCompositeView({
+            this.listRegion.show( new TodoCompositeView({
                 collection : todoCollection
             }));
         },
 
     });
-})(app);
+    return TodoLayoutView;
+});

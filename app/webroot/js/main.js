@@ -1,10 +1,17 @@
 /**
  * Created by admin on 15/10/30.
  */
-var app = app || {};
-
 //開始
-(function(app) {
-    app.application = new app.Application();
-    app.application.start();
-})(app);
+console.log('load main');
+require([
+        'marionette'
+    ],
+    function(){
+        console.log('run main');
+        require(['app'], function(Application){
+            console.log('run main2');
+            window.application = new Application();
+            window.application.start();
+            console.log('app start');
+        });
+    });
